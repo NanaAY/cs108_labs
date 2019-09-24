@@ -1,0 +1,93 @@
+#Import the turtle and math libraries.
+import turtle
+import math
+#Create the turtle window and a turtle
+window = turtle.Screen()
+bob = turtle.Turtle()
+
+
+#Function tryAgain for to ask the user if they would like to draw another spirograph
+def tryAgain():
+    while True:
+        quest = input("Would you like to draw another spirograph?")
+        if quest not in ["Y", "y", "N", "n"]:
+            raise ValueError("Invalid answer")
+            continue
+        elif quest == "Y" or quest == "y":
+            return True
+        elif quest == "N" or quest == "n":
+            return False
+
+
+#Loop forever
+while True:
+    #Prompt for the moving radius and store this float in mov_rad.
+    while True:
+        try:
+            mov_rad = float(input("Enter moving radius:"))
+            break
+        except ValueError as e:
+            print("Moving radius is inappropriate.")
+    
+    #Prompt for the fixed radius and store this float in fix_rad.
+    while True:
+        try:
+            fix_rad = float(input("Enter fixed radius:"))
+            break
+        except ValueError as e:
+            print("Fixed radius is inappropriate.")
+    
+    #Prompt for the offset of the pen point and store this float in pen_offset.
+    while True:
+        try:
+            pen_offset = float(input("Enter the pen offset:"))
+            break
+        except ValueError as e:
+            print("Pen offset is inappropriate.")
+    #Prompt for the color and store this string in color.
+    while True:
+        color = input("Enter a color:")
+        try:
+            turtle.pencolor(color)
+            break
+        except:
+            print("Not a legal color.")
+    
+    #Draw the spirograph.
+    # First, do the setup.
+    #Initialize the current time to 0.0.
+    time = 0.0
+    #Tell your turtle to pick up its pen.
+    bob.penup()
+    #Tell your turtle to move to the appropriate initial position. In particular, use the equations given above to compute x(0) and y(0).
+    x = (fix_rad +mov_rad) * math.cos(time) + (pen_offset * math.cos(((mov_rad +fix_rad) * time) / mov_rad))
+
+    y = (fix_rad +mov_rad) * math.sin(time) + (pen_offset * math.sin(((mov_rad +fix_rad) * time) / mov_rad))
+    bob.setposition(x,y)
+    #Tell your turtle to put the pen down.
+    bob.pendown()
+    #Tell your turtle to set the pen color to the value given by the user.
+    bob.pencolor(color)
+    # Then draw the spirograph.
+    #Loop while the time is less than 100.
+    while time < 100:
+        #Increment time by 0.1.
+        time += 0.1
+        #Compute a value for x using the new value of time. Use the equations specified above.
+        x = (fix_rad +mov_rad) * math.cos(time) + (pen_offset * math.cos(((mov_rad +fix_rad) * time) / mov_rad))
+        #Compute a value for y using the new value of time.
+        y = (fix_rad +mov_rad) * math.sin(time) + (pen_offset * math.sin(((mov_rad +fix_rad) * time) / mov_rad))
+        #Tell your turtle to go to the location specified by x and y.turtle.draw
+        bob.goto(x,y)
+    
+    
+    #Check if they want to draw another spirograph
+    check = tryAgain()
+    if check == True:
+        continue
+    else:
+        print("Work is done!")
+        break
+    
+#Make it so the spirograph window closes when clicked.
+window.exitonclick()

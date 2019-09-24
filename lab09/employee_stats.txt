@@ -1,0 +1,13 @@
+	THIS FILE CONTAINS USEFUL EMPLOYEE STATS
+
+Employee with the highest pay: 
+Blair, S. : CEO ($182123.0)
+
+Employee with the lowest pay: 
+Curtis, T. : Staff ($20106.0)
+
+Rank	Average Salary
+Staff	57075.38596491228
+VP	101078.0
+Manager	70055.94736842105
+CEO	182123.0
